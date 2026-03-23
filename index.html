@@ -661,59 +661,6 @@
       opacity: 0.7;
     }
 
-    /* 8. GALLERY TEASER */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 250px);
-      gap: 20px;
-    }
-
-    .bento-item {
-      background: var(--mid);
-      border-radius: 5px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      cursor: pointer;
-    }
-
-    .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .bento-item:nth-child(2) { grid-column: span 2; }
-    .bento-item:nth-child(3) { grid-column: span 1; }
-    .bento-item:nth-child(4) { grid-column: span 1; }
-
-    .bento-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(42, 173, 168, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: var(--transition);
-      transform: scale(1.1);
-    }
-
-    .bento-item:hover .bento-overlay {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .bento-label {
-      color: var(--darker);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 1rem;
-    }
-
     /* 9. TESTIMONIALS */
     .review-grid {
       display: grid;
@@ -1016,6 +963,98 @@
       color: var(--accent);
     }
 
+    /* CAROUSEL STYLES */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 40px;
+    }
+    .carousel-wrapper {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 8px;
+      padding: 10px 0; /* Cho hiệu ứng hover không bị cắt */
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      gap: 20px;
+    }
+    .carousel-item {
+      flex: 0 0 calc(33.333% - 13.33px); /* 3 items per view */
+      background: rgba(242, 235, 221, 0.02);
+      border: 1px solid rgba(42, 173, 168, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: var(--transition);
+    }
+    .carousel-item:hover {
+      border-color: rgba(42, 173, 168, 0.3);
+      background: rgba(242, 235, 221, 0.05);
+      transform: translateY(-5px);
+    }
+    .carousel-img {
+      width: 100%;
+      height: 200px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .carousel-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .carousel-item:hover .carousel-img img {
+      transform: scale(1.1);
+    }
+    .carousel-info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .carousel-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--cream);
+    }
+    .carousel-price {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    .carousel-btn {
+      background: var(--dark);
+      color: var(--teal);
+      border: 1px solid rgba(42, 173, 168, 0.3);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      transition: all 0.3s;
+    }
+    .carousel-btn:hover {
+      background: var(--teal);
+      color: var(--darker);
+    }
+    .prev-btn { left: -20px; }
+    .next-btn { right: -20px; }
+
     /* CART STYLES */
     .menu-item-bottom {
       display: flex;
@@ -1185,6 +1224,7 @@
       .story-grid, .contact-grid {
         gap: 40px;
       }
+      .carousel-item { flex: 0 0 calc(50% - 10px); }
       .hero-circle {
         width: 300px;
         height: 300px;
@@ -1195,6 +1235,9 @@
     }
 
     @media (max-width: 768px) {
+      .carousel-item { flex: 0 0 100%; }
+      .prev-btn { left: 0; }
+      .next-btn { right: 0; }
       .nav-links, .nav-cta {
         display: none;
       }
@@ -1229,12 +1272,6 @@
       .process-step {
         width: 100%;
       }
-      .bento-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(4, 200px);
-      }
-      .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-      .bento-item:nth-child(2) { grid-column: span 2; }
       .booking-form {
         padding: 30px 20px;
       }
@@ -2156,30 +2193,80 @@
     </div>
   </section>
 
-  <!-- 8. GALLERY TEASER -->
-  <section id="gallery" class="section-padding">
+  <!-- 8. BEST SELLER CAROUSEL -->
+  <section id="best-seller-carousel" class="section-padding">
     <div class="container">
-      <div class="bento-grid reveal">
-        <div class="bento-item" style="overflow: hidden;">
-          <img src="/met-heo.jpg" alt="Heo Nguyên Con" style="width: 100%; height: 100%; object-fit: cover;">
-          <div class="bento-overlay"><span class="bento-label">Heo Nguyên Con</span></div>
+      <div class="why-header reveal">
+        <span class="label">Món Ngon Nổi Bật</span>
+        <h2 class="section-title">Best <i>Sellers</i></h2>
+      </div>
+      <div class="carousel-container reveal">
+        <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">&#10094;</button>
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="carousel-track">
+            <div class="carousel-item">
+              <div class="carousel-img">
+                <img src="/heo-toc-5-mon-nguyen-con.jpg" alt="Heo Tộc 5 Món Nguyên Con">
+              </div>
+              <div class="carousel-info">
+                <h3 class="carousel-name">Heo Tộc 5 Món Nguyên Con</h3>
+                <div class="carousel-price">1.800K/con</div>
+                <div class="menu-item-bottom">
+                  <button class="add-to-cart-btn" onclick="addToCart('Heo Tộc 5 Món Nguyên Con', '1.800K/con')"><span>+</span> Thêm</button>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="carousel-img">
+                <img src="/met-heo.jpg" alt="Mẹt Heo Tộc Đủ Món">
+              </div>
+              <div class="carousel-info">
+                <h3 class="carousel-name">Mẹt Heo Tộc Đủ Món</h3>
+                <div class="carousel-price">850K/mẹt</div>
+                <div class="menu-item-bottom">
+                  <button class="add-to-cart-btn" onclick="addToCart('Mẹt Heo Tộc Đủ Món', '850K/mẹt')"><span>+</span> Thêm</button>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="carousel-img">
+                <img src="/heo-quay.jpg" alt="Heo Nướng Da Giòn">
+              </div>
+              <div class="carousel-info">
+                <h3 class="carousel-name">Heo Nướng Da Giòn</h3>
+                <div class="carousel-price">350K/phần</div>
+                <div class="menu-item-bottom">
+                  <button class="add-to-cart-btn" onclick="addToCart('Heo Nướng Da Giòn', '350K/phần')"><span>+</span> Thêm</button>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="carousel-img">
+                <img src="/ca-nuong-muoi-ot-gieng-me.jpg" alt="Cá Nướng Muối Ớt Giềng Mẻ">
+              </div>
+              <div class="carousel-info">
+                <h3 class="carousel-name">Cá Nướng Muối Ớt Giềng Mẻ</h3>
+                <div class="carousel-price">250K/con</div>
+                <div class="menu-item-bottom">
+                  <button class="add-to-cart-btn" onclick="addToCart('Cá Nướng Muối Ớt Giềng Mẻ', '250K/con')"><span>+</span> Thêm</button>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="carousel-img">
+                <img src="/xoi-bo-cau-xoi-chim.jpg" alt="Xôi Bồ Câu (Xôi Chim)">
+              </div>
+              <div class="carousel-info">
+                <h3 class="carousel-name">Xôi Bồ Câu (Xôi Chim)</h3>
+                <div class="carousel-price">150K/phần</div>
+                <div class="menu-item-bottom">
+                  <button class="add-to-cart-btn" onclick="addToCart('Xôi Bồ Câu (Xôi Chim)', '150K/phần')"><span>+</span> Thêm</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="bento-item">
-          🔥
-          <div class="bento-overlay"><span class="bento-label">Khói Lửa Bập Bùng</span></div>
-        </div>
-        <div class="bento-item">
-          🌿
-          <div class="bento-overlay"><span class="bento-label">Gia Vị Núi Rừng</span></div>
-        </div>
-        <div class="bento-item">
-          ⛺
-          <div class="bento-overlay"><span class="bento-label">Bàn Tiệc Ngoài Trời</span></div>
-        </div>
-        <div class="bento-item">
-          👑
-          <div class="bento-overlay"><span class="bento-label">Nghi Lễ Truyền Thống</span></div>
-        </div>
+        <button class="carousel-btn next-btn" onclick="moveCarousel(1)">&#10095;</button>
       </div>
     </div>
   </section>
@@ -2791,6 +2878,38 @@
 
     // Initialize empty cart UI
     updateCartUI();
+
+    // CAROUSEL LOGIC
+    let currentSlide = 0;
+    
+    function moveCarousel(direction) {
+      const track = document.getElementById('carousel-track');
+      const items = track.querySelectorAll('.carousel-item');
+      if (items.length === 0) return;
+      
+      const itemWidth = items[0].offsetWidth;
+      const gap = 20; // Match the gap in CSS
+      
+      // Calculate how many items are visible
+      const containerWidth = document.querySelector('.carousel-wrapper').offsetWidth;
+      const visibleItems = Math.floor(containerWidth / itemWidth);
+      
+      const maxSlide = items.length - visibleItems;
+      
+      currentSlide += direction;
+      
+      if (currentSlide < 0) currentSlide = 0;
+      if (currentSlide > maxSlide) currentSlide = maxSlide;
+      
+      track.style.transform = `translateX(-${currentSlide * (itemWidth + gap)}px)`;
+    }
+    
+    // Handle window resize to reset carousel position
+    window.addEventListener('resize', () => {
+      currentSlide = 0;
+      const track = document.getElementById('carousel-track');
+      if (track) track.style.transform = `translateX(0)`;
+    });
   </script>
 </body>
 </html>
