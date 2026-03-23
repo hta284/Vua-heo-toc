@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bếp & Điều Phối - Vua Heo Tộc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #121212;
+      --bg-col: #1a1a1a;
+      --bg-card: #242424;
+      --text-main: #f5f5f5;
+      --text-muted: #a0a0a0;
+      
+      --c-pending: #f39c12; /* Cam - Phiếu mới */
+      --c-cooking: #3498db; /* Xanh dương - Đang nấu */
+      --c-completed: #2ecc71; /* Xanh lá - Hoàn thành */
+      --c-danger: #e74c3c; /* Đỏ - Hủy */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .admin-header {
+      background: #0a0a0a;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      height: 70px;
+      flex-shrink: 0;
+    }
+
+    .admin-header h1 {
+      font-size: 1.4rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-header h1 span {
+      color: var(--c-pending);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--c-completed);
+      background: rgba(46, 204, 113, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--c-completed);
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .btn-clear {
+      background: transparent;
+      border: 1px solid var(--c-danger);
+      color: var(--c-danger);
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-clear:hover {
+      background: var(--c-danger);
+      color: #fff;
+    }
+
+    /* KANBAN BOARD */
+    .board {
+      display: flex;
+      flex: 1;
+      padding: 20px;
+      gap: 20px;
+      overflow-x: auto;
+      height: calc(100vh - 70px);
+    }
+
+    .column {
+      flex: 1;
+      min-width: 320px;
+      background: var(--bg-col);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #2a2a2a;
+      overflow: hidden;
+    }
+
+    .column-header {
+      padding: 15px 20px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid;
+      background: #111;
+    }
+
+    .col-pending .column-header { border-bottom-color: var(--c-pending); color: var(--c-pending); }
+    .col-cooking .column-header { border-bottom-color: var(--c-cooking); color: var(--c-cooking); }
+    .col-completed .column-header { border-bottom-color: var(--c-completed); color: var(--c-completed); }
+
+    .count-badge {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+
+    .column-body {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Custom Scrollbar for columns */
+    .column-body::-webkit-scrollbar { width: 6px; }
+    .column-body::-webkit-scrollbar-track { background: transparent; }
+    .column-body::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+    /* ORDER CARD */
+    .order-card {
+      background: var(--bg-card);
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      border-left: 4px solid transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .col-pending .order-card { border-left-color: var(--c-pending); }
+    .col-cooking .order-card { border-left-color: var(--c-cooking); }
+    .col-completed .order-card { border-left-color: var(--c-completed); opacity: 0.8; }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #444;
+      padding-bottom: 8px;
+    }
+
+    .order-id {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .order-time {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .customer-info {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .customer-info strong {
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .customer-info .phone {
+      color: var(--c-cooking);
+      font-weight: 600;
+    }
+
+    .order-items {
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .item-row:last-child { margin-bottom: 0; }
+
+    .item-qty {
+      font-weight: 700;
+      color: var(--c-pending);
+      margin-right: 8px;
+    }
+
+    .order-total {
+      text-align: right;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--c-completed);
+      margin-top: 5px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary { background: var(--c-cooking); color: #fff; }
+    .btn-success { background: var(--c-completed); color: #fff; }
+    .btn-danger { background: rgba(231, 76, 60, 0.1); color: var(--c-danger); }
+    .btn-danger:hover { background: var(--c-danger); color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid #555; color: #ccc; }
+    .btn-outline:hover { background: #333; color: #fff; }
+
+    .empty-state {
+      text-align: center;
+      color: var(--text-muted);
+      margin-top: 40px;
+      font-size: 0.95rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <h1><span>🔥</span> Bếp & Điều Phối Đơn Hàng</h1>
+    <div class="header-actions">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        Live Sync
+      </div>
+      <button class="btn-clear" onclick="clearAllOrders()">Xóa Dữ Liệu Test</button>
+    </div>
+  </header>
+
+  <div class="board">
+    <!-- CỘT 1: PHIẾU MỚI -->
+    <div class="column col-pending">
+      <div class="column-header">
+        Phiếu Mới (Chờ Nhận)
+        <span class="count-badge" id="count-pending">0</span>
+      </div>
+      <div class="column-body" id="list-pending">
+        <!-- Cards go here -->
+      </div>
+    </div>
+
+    <!-- CỘT 2: ĐANG NẤU -->
+    <div class="column col-cooking">
+      <div class="column-header">
+        Đã Nhận (Đang Nấu)
+        <span class="count-badge" id="count-cooking">0</span>
+      </div>
+      <div class="column-body" id="list-cooking">
+        <!-- Cards go here -->
+      </div>
+    </div>
+
+    <!-- CỘT 3: HOÀN THÀNH -->
+    <div class="column col-completed">
+      <div class="column-header">
+        Hoàn Thành (Chờ Giao)
+        <span class="count-badge" id="count-completed">0</span>
+      </div>
+      <div class="column-body" id="list-completed">
+        <!-- Cards go here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Format time helper
+    function formatTime(timestamp) {
+      const d = new Date(timestamp);
+      return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Load and render orders
+    function loadOrders() {
+      // Lấy dữ liệu từ localStorage (Mô phỏng Database)
+      const orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
+      
+      // Phân loại đơn hàng
+      const pending = orders.filter(o => o.status === 'pending');
+      const cooking = orders.filter(o => o.status === 'cooking');
+      const completed = orders.filter(o => o.status === 'completed');
+
+      // Cập nhật số lượng trên Header cột
+      document.getElementById('count-pending').innerText = pending.length;
+      document.getElementById('count-cooking').innerText = cooking.length;
+      document.getElementById('count-completed').innerText = completed.length;
+
+      // Render từng cột
+      renderColumn('list-pending', pending, 'pending');
+      renderColumn('list-cooking', cooking, 'cooking');
+      renderColumn('list-completed', completed, 'completed');
+    }
+
+    function renderColumn(elementId, ordersList, type) {
+      const container = document.getElementById(elementId);
+      
+      if (ordersList.length === 0) {
+        container.innerHTML = `<div class="empty-state">Không có đơn nào</div>`;
+        return;
+      }
+
+      // Sắp xếp: 
+      // Phiếu mới & Đang nấu: Cũ nhất lên đầu (FIFO - Ai đặt trước làm trước)
+      // Hoàn thành: Mới nhất lên đầu (Để dễ xem đơn vừa xong)
+      if (type === 'completed') {
+        ordersList.sort((a, b) => b.timestamp - a.timestamp);
+      } else {
+        ordersList.sort((a, b) => a.timestamp - b.timestamp);
+      }
+      
+      container.innerHTML = ordersList.map(order => {
+        // Tạo HTML cho danh sách món ăn
+        const itemsHtml = order.items.map(i => `
+          <div class="item-row">
+            <div><span class="item-qty">${i.qty}x</span> ${i.name}</div>
+          </div>
+        `).join('');
+
+        // Tạo HTML cho các nút thao tác tùy theo trạng thái
+        let actionButtons = '';
+        if (type === 'pending') {
+          actionButtons = `
+            <button class="btn btn-primary" onclick="updateOrderStatus('${order.id}', 'cooking')">Nhận Đơn (Nấu)</button>
+            <button class="btn btn-danger" onclick="updateOrderStatus('${order.id}', 'cancelled')">Hủy</button>
+          `;
+        } else if (type === 'cooking') {
+          actionButtons = `
+            <button class="btn btn-success" onclick="updateOrderStatus('${order.id}', 'completed')">Xong (Chờ Giao)</button>
+          `;
+        } else if (type === 'completed') {
+          actionButtons = `
+            <button class="btn btn-outline" onclick="deleteOrder('${order.id}')">Xóa Khỏi Bảng</button>
+          `;
+        }
+
+        // Trả về HTML của Card
+        return `
+          <div class="order-card">
+            <div class="card-header">
+              <div class="order-id">#${order.id}</div>
+              <div class="order-time">🕒 ${formatTime(order.timestamp)}</div>
+            </div>
+            
+            <div class="customer-info">
+              <strong>${order.customerName}</strong><br>
+              <span class="phone">📞 ${order.customerPhone}</span><br>
+              <span style="color: var(--text-muted)">📍 ${order.customerAddress}</span>
+            </div>
+
+            <div class="order-items">
+              ${itemsHtml}
+            </div>
+            
+            <div class="order-total">${order.totalPriceText}</div>
+            
+            <div class="card-actions">
+              ${actionButtons}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Cập nhật trạng thái đơn hàng
+    function updateOrderStatus(orderId, newStatus) {
+      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
+      const index = orders.findIndex(o => o.id === orderId);
+      
+      if (index > -1) {
+        orders[index].status = newStatus;
+        // Nếu chuyển sang hoàn thành, cập nhật lại timestamp để đưa lên đầu danh sách hoàn thành
+        if (newStatus === 'completed') {
+          orders[index].timestamp = Date.now(); 
+        }
+        localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
+        loadOrders();
+      }
+    }
+
+    // Xóa 1 đơn hàng (ẩn khỏi bảng)
+    function deleteOrder(orderId) {
+      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
+      orders = orders.filter(o => o.id !== orderId);
+      localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
+      loadOrders();
+    }
+
+    // Xóa toàn bộ dữ liệu (Dành cho lúc test)
+    function clearAllOrders() {
+      if(confirm('Bạn có chắc chắn muốn xóa TẤT CẢ đơn hàng test không?')) {
+        localStorage.removeItem('vuaheotoc_orders');
+        loadOrders();
+      }
+    }
+
+    // Khởi chạy lần đầu
+    loadOrders();
+
+    // Tự động làm mới mỗi 2 giây để giả lập Real-time
+    setInterval(loadOrders, 2000);
+
+  </script>
+</body>
+</html>

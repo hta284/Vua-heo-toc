@@ -2763,6 +2763,22 @@
         return;
       }
 
+      // Save order to localStorage for admin demo
+      const order = {
+        id: Math.floor(100000 + Math.random() * 900000).toString(),
+        customerName: name,
+        customerPhone: phone,
+        customerAddress: address,
+        items: cart,
+        totalPriceText: document.getElementById('cart-total-price').innerText,
+        status: 'pending',
+        timestamp: Date.now()
+      };
+      
+      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
+      orders.push(order);
+      localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
+
       alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất để xác nhận đơn hàng.');
       cart = [];
       updateCartUI();
