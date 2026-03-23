@@ -573,6 +573,33 @@
       margin-top: 4px;
     }
 
+    .menu-item.featured {
+      flex-direction: column;
+      gap: 15px;
+      border: 1px solid rgba(42, 173, 168, 0.1);
+      padding: 15px;
+      background: rgba(242, 235, 221, 0.02);
+      border-radius: 8px;
+    }
+
+    .menu-item-img {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+
+    .menu-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .menu-item.featured:hover .menu-item-img img {
+      transform: scale(1.1);
+    }
+
     /* 7. THE ROASTING PROCESS */
     .process-header {
       text-align: center;
@@ -1072,7 +1099,7 @@
   <nav id="main-nav">
     <div class="container">
       <a href="#" class="logo">
-        <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 50px; width: auto; margin-right: 10px; border-radius: 50%;">
+        <img src="/logo.png" alt="Vua Heo Tộc Logo" style="height: 50px; width: auto; margin-right: 10px; border-radius: 50%;">
         Vua Heo Tộc
       </a>
       <ul class="nav-links">
@@ -1098,7 +1125,7 @@
     <canvas id="particles-canvas"></canvas>
     <div class="container">
       <div class="hero-content reveal">
-        <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 120px; width: auto; margin-bottom: 30px; border-radius: 50%; border: 2px solid var(--teal);">
+        <img src="/logo.png" alt="Vua Heo Tộc Logo" style="height: 120px; width: auto; margin-bottom: 30px; border-radius: 50%; border: 2px solid var(--teal);">
         <span class="label">Tinh Hoa Ẩm Thực Núi Rừng</span>
         <h1>
           <span>Vị Vua</span>
@@ -1115,7 +1142,7 @@
         <div class="ring ring-2"></div>
         <div class="ring ring-3"></div>
         <div class="hero-circle">
-          🐗
+          <img src="/logo.png" alt="Vua Heo Tộc" style="width: 65%; height: auto; border-radius: 50%;">
         </div>
       </div>
     </div>
@@ -1185,8 +1212,8 @@
           </div>
         </div>
         <div class="story-visual reveal">
-          <div class="story-img-placeholder">
-            🐗
+          <div class="story-img-placeholder" style="overflow: hidden;">
+            <img src="/heo-quay.jpg" alt="Heo quay truyền thống" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;">
             <div class="watermark">TRUYỀN THỐNG 1.000+ NĂM</div>
           </div>
         </div>
@@ -1203,7 +1230,7 @@
       </div>
       <div class="why-grid">
         <div class="why-card reveal">
-          <span class="why-icon">🐗</span>
+          <span class="why-icon">🥩</span>
           <h3>Heo Rừng Thuần Chủng</h3>
           <p>Nguồn gốc rõ ràng từ các trang trại vùng cao, heo được chăn thả tự nhiên, không nuôi nhốt công nghiệp.</p>
         </div>
@@ -1402,7 +1429,10 @@
       <div class="menu-category-section reveal" id="ga">
         <h3 class="category-title">Món Gà & Vịt</h3>
         <div class="menu-items-grid">
-          <div class="menu-item">
+          <div class="menu-item featured">
+            <div class="menu-item-img">
+              <img src="/ga-tre.jpg" alt="Gà tre rang lá chanh" referrerPolicy="no-referrer">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà tre rang lá chanh <span class="best-seller-badge">Best Seller</span></div>
               <div class="menu-item-desc">Món gà đặc biệt với hương thơm lá chanh rừng</div>
@@ -1495,14 +1525,20 @@
       <div class="menu-category-section reveal" id="heo">
         <h3 class="category-title">Heo Tộc Đặc Sản</h3>
         <div class="menu-items-grid">
-          <div class="menu-item">
+          <div class="menu-item featured">
+            <div class="menu-item-img">
+              <img src="/heo-quay.jpg" alt="Heo nướng da giòn" referrerPolicy="no-referrer">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Heo nướng da giòn <span class="best-seller-badge">Best Seller</span></div>
               <div class="menu-item-desc">Món đặc biệt làm nên thương hiệu Vua Heo Tộc</div>
             </div>
             <div class="menu-item-price">350K/phần</div>
           </div>
-          <div class="menu-item">
+          <div class="menu-item featured">
+            <div class="menu-item-img">
+              <img src="/met-heo.jpg" alt="Heo tộc lên mẹt" referrerPolicy="no-referrer">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Heo tộc lên mẹt 4 món <span class="best-seller-badge">Best Seller</span></div>
             </div>
@@ -1747,8 +1783,8 @@
   <section id="gallery" class="section-padding">
     <div class="container">
       <div class="bento-grid reveal">
-        <div class="bento-item">
-          🐗
+        <div class="bento-item" style="overflow: hidden;">
+          <img src="/met-heo.jpg" alt="Heo Nguyên Con" style="width: 100%; height: 100%; object-fit: cover;">
           <div class="bento-overlay"><span class="bento-label">Heo Nguyên Con</span></div>
         </div>
         <div class="bento-item">
@@ -1946,7 +1982,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-            <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 40px; width: auto; border-radius: 50%;">
+            <img src="/logo.png" alt="Vua Heo Tộc Logo" style="height: 40px; width: auto; border-radius: 50%;">
             <h2 style="margin: 0;">Vua Heo Tộc</h2>
           </div>
           <p>Bảo tồn hương vị ngàn năm, mang tinh hoa núi rừng đến bàn tiệc hiện đại.</p>
