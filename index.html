@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vua Heo Tộc | Vị Vua Của Núi Rừng - Heo Rừng Nướng Truyền Thống</title>
+  <meta name="description" content="Thưởng thức heo rừng nướng nguyên con theo nghi thức truyền thống ngàn năm. Đặt tiệc ngay để mang hương vị núi rừng vào bữa tiệc của bạn.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --teal:    #2AADA8;
+      --teal2:   #1D8C87;
+      --mint:    #A8DEDA;
+      --cream:   #F0FAF9;
+      --dark:    #0D2B2A;
+      --darker:  #061918;
+      --mid:     #134040;
+      --sand:    #C8EDEA;
+      --gold:    #E8B84B;
+      --accent:  #F28C38;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Outfit', sans-serif;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--darker);
+      color: var(--cream);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--teal);
+      color: var(--darker);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--mint);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(42, 173, 168, 0.2);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      border: 1px solid var(--teal);
+      color: var(--teal);
+    }
+
+    .btn-ghost:hover {
+      background-color: rgba(42, 173, 168, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .section-padding {
+      padding: 100px 0;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--teal);
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 30px;
+      line-height: 1.1;
+    }
+
+    .section-title i {
+      color: var(--mint);
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 1. STICKY NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+      background: rgba(13, 43, 42, 0.8);
+      border-bottom: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .logo img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--cream);
+      opacity: 0.8;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--teal);
+    }
+
+    .nav-cta {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background-color: var(--teal);
+      transition: var(--transition);
+    }
+
+    /* 2. HERO SECTION */
+    #hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 70% 30%, var(--mid) 0%, var(--darker) 70%);
+    }
+
+    #hero .container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 span {
+      display: block;
+    }
+
+    .hero-content h1 .italic {
+      font-style: italic;
+      color: var(--mint);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 500px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 20px;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-circle {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      position: relative;
+      box-shadow: 0 0 50px rgba(42, 173, 168, 0.3);
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    .ring {
+      position: absolute;
+      border: 1px solid rgba(42, 173, 168, 0.3);
+      border-radius: 50%;
+      animation: spin linear infinite;
+    }
+
+    .ring-1 { width: 480px; height: 480px; animation-duration: 15s; }
+    .ring-2 { width: 560px; height: 560px; animation-duration: 25s; animation-direction: reverse; }
+    .ring-3 { width: 640px; height: 640px; animation-duration: 35s; }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(42, 173, 168, 0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(42, 173, 168, 0.5); }
+    }
+
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--teal), transparent);
+    }
+
+    /* 3. TRUST BAR */
+    .trust-bar {
+      background-color: var(--dark);
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .trust-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .trust-item span {
+      font-size: 1.5rem;
+    }
+
+    /* 4. OUR STORY */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-content p {
+      margin-bottom: 20px;
+      opacity: 0.8;
+      font-size: 1.1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .stat-item h4 {
+      font-size: 2rem;
+      color: var(--teal);
+      margin-bottom: 5px;
+    }
+
+    .stat-item p {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+    }
+
+    .story-visual {
+      position: relative;
+    }
+
+    .story-img-placeholder {
+      aspect-ratio: 4/5;
+      background: var(--mid);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .watermark {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      opacity: 0.1;
+      color: var(--cream);
+      writing-mode: vertical-rl;
+      letter-spacing: 5px;
+    }
+
+    /* 5. WHY CHOOSE US */
+    .why-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .why-card {
+      background: var(--dark);
+      padding: 40px;
+      border-radius: 5px;
+      border: 1px solid rgba(42, 173, 168, 0.1);
+      transition: var(--transition);
+    }
+
+    .why-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--teal);
+      background: var(--mid);
+    }
+
+    .why-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .why-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--mint);
+    }
+
+    .why-card p {
+      font-size: 0.95rem;
+      opacity: 0.7;
+    }
+
+    /* 6. MENU - NEW EXTENSIVE STYLE */
+    .menu-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 80px;
+      z-index: 100;
+      background: rgba(13, 43, 42, 0.9);
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .category-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: var(--dark);
+      border: 1px solid rgba(42, 173, 168, 0.2);
+      color: var(--cream);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background: var(--teal);
+      color: var(--darker);
+      border-color: var(--teal);
+    }
+
+    .menu-category-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 160px;
+    }
+
+    .category-title {
+      font-size: 2rem;
+      color: var(--teal);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .category-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(42, 173, 168, 0.3), transparent);
+    }
+
+    .menu-items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px 60px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed rgba(42, 173, 168, 0.15);
+      position: relative;
+    }
+
+    .menu-item-info {
+      flex-grow: 1;
+    }
+
+    .menu-item-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-item-price {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.1rem;
+      white-space: nowrap;
+      margin-left: 20px;
+    }
+
+    .best-seller-badge {
+      background: var(--accent);
+      color: white;
+      font-size: 0.6rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-item-desc {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    /* 7. THE ROASTING PROCESS */
+    .process-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .process-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      padding-top: 40px;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: 5%;
+      width: 90%;
+      height: 1px;
+      background: rgba(42, 173, 168, 0.2);
+      z-index: 1;
+    }
+
+    .process-step {
+      width: 22%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--darker);
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .process-step:hover .step-icon {
+      background: var(--teal);
+      color: var(--darker);
+      transform: scale(1.2);
+    }
+
+    .process-step h4 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--mint);
+    }
+
+    .process-step p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* 8. GALLERY TEASER */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 250px);
+      gap: 20px;
+    }
+
+    .bento-item {
+      background: var(--mid);
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .bento-item:nth-child(2) { grid-column: span 2; }
+    .bento-item:nth-child(3) { grid-column: span 1; }
+    .bento-item:nth-child(4) { grid-column: span 1; }
+
+    .bento-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(42, 173, 168, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: var(--transition);
+      transform: scale(1.1);
+    }
+
+    .bento-item:hover .bento-overlay {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .bento-label {
+      color: var(--darker);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 1rem;
+    }
+
+    /* 9. TESTIMONIALS */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .review-card {
+      background: var(--dark);
+      padding: 40px;
+      border-radius: 5px;
+      border: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .stars {
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .review-text {
+      font-style: italic;
+      margin-bottom: 25px;
+      opacity: 0.9;
+      font-size: 1.05rem;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      color: var(--teal);
+      font-size: 0.9rem;
+    }
+
+    /* 10. FAQ ACCORDION */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-question:hover {
+      color: var(--teal);
+    }
+
+    .faq-icon {
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+      color: var(--teal);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-answer p {
+      padding-bottom: 20px;
+      opacity: 0.7;
+      font-size: 1rem;
+    }
+
+    /* 11. CONTACT / BOOKING FORM */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+    }
+
+    .contact-info h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      opacity: 0.8;
+      margin-bottom: 40px;
+    }
+
+    .contact-details {
+      margin-bottom: 40px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .contact-detail span:first-child {
+      font-size: 1.5rem;
+      color: var(--teal);
+    }
+
+    .urgency-badge {
+      display: inline-block;
+      background: rgba(242, 140, 56, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .booking-form {
+      background: var(--dark);
+      padding: 50px;
+      border-radius: 5px;
+      border: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--darker);
+      border: 1px solid rgba(42, 173, 168, 0.2);
+      padding: 14px;
+      color: var(--cream);
+      border-radius: 5px;
+      font-family: var(--font-body);
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 10px rgba(42, 173, 168, 0.1);
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: rgba(42, 173, 168, 0.1);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    /* 12. FOOTER */
+    footer {
+      background-color: var(--darker);
+      padding: 80px 0 40px;
+      border-top: 1px solid rgba(42, 173, 168, 0.1);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand h2 {
+      color: var(--teal);
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      color: var(--mint);
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    .footer-col ul li a:hover {
+      opacity: 1;
+      color: var(--teal);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background: var(--teal);
+      color: var(--darker);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      padding-top: 40px;
+      border-top: 1px solid rgba(42, 173, 168, 0.05);
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.4;
+    }
+
+    /* STICKY CTA BAR MOBILE */
+    .sticky-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--dark);
+      padding: 15px 20px;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-top: 1px solid var(--teal);
+      box-shadow: 0 -10px 20px rgba(0,0,0,0.3);
+    }
+
+    .sticky-cta-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .sticky-cta-text span {
+      color: var(--accent);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .story-grid, .contact-grid {
+        gap: 40px;
+      }
+      .hero-circle {
+        width: 300px;
+        height: 300px;
+      }
+      .ring-1 { width: 360px; height: 360px; }
+      .ring-2 { width: 420px; height: 420px; }
+      .ring-3 { width: 480px; height: 480px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .hero-visual {
+        display: none;
+      }
+      #hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-btns {
+        justify-content: center;
+      }
+      .story-grid, .why-grid, .menu-grid, .review-grid, .contact-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .process-timeline {
+        flex-direction: column;
+        gap: 40px;
+        padding-top: 0;
+      }
+      .process-timeline::before {
+        display: none;
+      }
+      .process-step {
+        width: 100%;
+      }
+      .bento-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 200px);
+      }
+      .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .bento-item:nth-child(2) { grid-column: span 2; }
+      .menu-card.featured {
+        transform: scale(1);
+      }
+      .booking-form {
+        padding: 30px 20px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-group.full {
+        grid-column: span 1;
+      }
+      .sticky-cta-bar {
+        display: flex;
+      }
+      .section-padding {
+        padding: 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. STICKY NAVIGATION -->
+  <nav id="main-nav">
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 50px; width: auto; margin-right: 10px; border-radius: 50%;">
+        Vua Heo Tộc
+      </a>
+      <ul class="nav-links">
+        <li><a href="#story">Về Chúng Tôi</a></li>
+        <li><a href="#menu">Thực Đơn</a></li>
+        <li><a href="#process">Quy Trình</a></li>
+        <li><a href="#testimonials">Đánh Giá</a></li>
+        <li><a href="#contact">Liên Hệ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-primary">Đặt Bàn Ngay</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. HERO SECTION -->
+  <section id="hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="container">
+      <div class="hero-content reveal">
+        <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 120px; width: auto; margin-bottom: 30px; border-radius: 50%; border: 2px solid var(--teal);">
+        <span class="label">Tinh Hoa Ẩm Thực Núi Rừng</span>
+        <h1>
+          <span>Vị Vua</span>
+          <span class="italic">Của Núi Rừng</span>
+        </h1>
+        <p>Heo rừng nướng nguyên con theo nghi thức truyền thống. Chuyên phục vụ <b>Đặt Tiệc Tại Nhà</b> & <b>Mua Mang Về</b> nóng hổi, trọn vị núi rừng. <b>Chỉ phục vụ tại khu vực TP. Hồ Chí Minh.</b></p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary">Đặt Tiệc Ngay</a>
+          <a href="#menu" class="btn btn-ghost">Xem Thực Đơn</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="hero-circle">
+          🐗
+        </div>
+      </div>
+    </div>
+    <div class="hero-line"></div>
+  </section>
+
+  <!-- 3. TRUST BAR -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item"><span>🏆</span> Truyền thống 1.000+ năm</div>
+        <div class="trust-item"><span>🌿</span> Heo rừng 100% tự nhiên</div>
+        <div class="trust-item"><span>🔥</span> Nướng nguyên con</div>
+        <div class="trust-item"><span>🏠</span> Đặt tiệc tại nhà</div>
+        <div class="trust-item"><span>🛍️</span> Mua mang về</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.5 SPECIAL SERVICES -->
+  <section id="services" class="section-padding" style="background-color: var(--dark);">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-card reveal" style="border-color: var(--accent); background: rgba(242, 140, 56, 0.05);">
+          <span class="why-icon">🏠</span>
+          <h3 style="color: var(--accent);">Đặt Tiệc Tại Nhà</h3>
+          <p>Mang cả không gian lễ hội núi rừng đến tận sân vườn hoặc phòng tiệc của bạn. Nghệ nhân phục vụ nướng trực tiếp, setup lửa hồng và dọn dẹp trọn gói.</p>
+        </div>
+        <div class="why-card reveal" style="border-color: var(--teal); background: rgba(42, 173, 168, 0.05);">
+          <span class="why-icon">🛍️</span>
+          <h3 style="color: var(--teal);">Mua Mang Về (Takeaway)</h3>
+          <p>Thưởng thức đặc sản heo rừng ngay tại nhà. Giao hàng nóng hổi trong hộp giữ nhiệt chuyên dụng, đầy đủ gia vị và rau rừng đi kèm.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">📞</span>
+          <h3>Tư Vấn 24/7</h3>
+          <p>Đội ngũ hỗ trợ nhiệt tình, giúp bạn lựa chọn gói tiệc và số lượng heo phù hợp nhất với quy mô sự kiện của bạn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. OUR STORY -->
+  <section id="story" class="section-padding">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-content reveal">
+          <span class="label">Câu Chuyện Của Chúng Tôi</span>
+          <h2 class="section-title">Ngọn Lửa Được Truyền Qua Ngàn Năm</h2>
+          <p>Khởi nguồn từ những nghi lễ nướng heo rừng thiêng liêng của đồng bào dân tộc vùng cao phía Bắc, Vua Heo Tộc mang trong mình sứ mệnh gìn giữ và lan tỏa nét văn hóa ẩm thực độc bản này đến với thực khách hiện đại.</p>
+          <p>Mỗi chú heo rừng được chuẩn bị là kết quả của hàng giờ đồng hồ tỉ mỉ, từ khâu chọn lựa giống heo thuần chủng đến việc tẩm ướp bằng những loại gia vị bí truyền chỉ có ở đại ngàn.</p>
+          <p>Chúng tôi không chỉ phục vụ món ăn, chúng tôi mang đến một trải nghiệm văn hóa, nơi ngọn lửa hồng và hương khói gỗ rừng kết nối mọi người lại gần nhau hơn.</p>
+          
+          <div class="stats-grid">
+            <div class="stat-item">
+              <h4>500+</h4>
+              <p>Tiệc Đã Tổ Chức</p>
+            </div>
+            <div class="stat-item">
+              <h4>100%</h4>
+              <p>Phục Vụ Khắp TP.HCM</p>
+            </div>
+            <div class="stat-item">
+              <h4>1.000+</h4>
+              <p>Năm Truyền Thống</p>
+            </div>
+          </div>
+        </div>
+        <div class="story-visual reveal">
+          <div class="story-img-placeholder">
+            🐗
+            <div class="watermark">TRUYỀN THỐNG 1.000+ NĂM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WHY CHOOSE US -->
+  <section id="why" class="section-padding" style="background-color: var(--darker);">
+    <div class="container">
+      <div class="why-header reveal">
+        <span class="label">Tại Sao Chọn Vua Heo Tộc</span>
+        <h2 class="section-title">Sự Khác Biệt Từ <i>Tâm Hồn</i> Núi Rừng</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="why-icon">🐗</span>
+          <h3>Heo Rừng Thuần Chủng</h3>
+          <p>Nguồn gốc rõ ràng từ các trang trại vùng cao, heo được chăn thả tự nhiên, không nuôi nhốt công nghiệp.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">🪵</span>
+          <h3>Củi Gỗ Truyền Thống</h3>
+          <p>Sử dụng than hoa từ gỗ rừng tự nhiên, tạo ra hương khói đặc trưng không thể trộn lẫn.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">🌿</span>
+          <h3>Gia Vị Núi Rừng</h3>
+          <p>Sự kết hợp hoàn hảo của mắc khén, hạt dổi, sả rừng và 9 loại thảo mộc bản địa bí truyền.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">👨‍🍳</span>
+          <h3>Nghệ Nhân Nướng</h3>
+          <p>Đội ngũ thợ thủ công là người dân tộc với kinh nghiệm 3 thế hệ gìn giữ bí quyết nướng heo.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">🚚</span>
+          <h3>Phục Vụ Tại Nhà</h3>
+          <p>Setup trọn gói từ bếp nướng, lửa hồng đến phục vụ tại bàn và dọn dẹp sạch sẽ sau tiệc.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon">📸</span>
+          <h3>Trải Nghiệm Độc Đáo</h3>
+          <p>Không chỉ là ăn uống, đó là một không gian nghi lễ với khói lửa bập bùng đầy ấn tượng.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. MENU -->
+  <section id="menu" class="section-padding">
+    <div class="container">
+      <div class="menu-header reveal">
+        <span class="label">Thực Đơn Đa Dạng</span>
+        <h2 class="section-title">Hương Vị Núi Rừng Đích Thực</h2>
+        <span class="menu-note">Tất cả nguyên liệu được tuyển chọn kỹ lưỡng — Đảm bảo vệ sinh ATTP</span>
+      </div>
+
+      <div class="menu-categories reveal">
+        <button class="category-btn active" data-target="rau">Món Rau</button>
+        <button class="category-btn" data-target="khai-vi">Khai Vị</button>
+        <button class="category-btn" data-target="ga">Món Gà</button>
+        <button class="category-btn" data-target="ca">Cá Khủng</button>
+        <button class="category-btn" data-target="heo">Heo Tộc</button>
+        <button class="category-btn" data-target="com-mi-xoi">Cơm - Mì - Xôi</button>
+        <button class="category-btn" data-target="chao">Cháo</button>
+        <button class="category-btn" data-target="goi">Gỏi</button>
+        <button class="category-btn" data-target="lau">Lẩu</button>
+        <button class="category-btn" data-target="khac">Món Khác</button>
+      </div>
+
+      <!-- CÁC MÓN RAU -->
+      <div class="menu-category-section reveal" id="rau">
+        <h3 class="category-title">Các Món Rau</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cà rốt - Dưa leo chẻ dọc</div>
+            </div>
+            <div class="menu-item-price">59K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rau luộc kho quẹt</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rau rừng luộc</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rau rừng xào tỏi</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rau rừng xào bò</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rau muống xào tỏi</div>
+            </div>
+            <div class="menu-item-price">59K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Nụ bí luộc</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Nụ bí xào bò</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Bầu luộc chấm trứng</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Khổ qua chà bông</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Khổ qua xào trứng</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Măng vàng xào tỏi</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Măng vàng xào heo tộc</div>
+            </div>
+            <div class="menu-item-price">189K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KHAI VỊ -->
+      <div class="menu-category-section reveal" id="khai-vi">
+        <h3 class="category-title">Khai Vị</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Bánh đa</div>
+            </div>
+            <div class="menu-item-price">25K/cái</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Khoai lang kén</div>
+            </div>
+            <div class="menu-item-price">89K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Chả ram chiên</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Đậu hũ chiên giòn</div>
+            </div>
+            <div class="menu-item-price">69K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Đậu hũ chiên sả</div>
+            </div>
+            <div class="menu-item-price">79K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Khô cá lóc chiên</div>
+            </div>
+            <div class="menu-item-price">99K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tép rang</div>
+            </div>
+            <div class="menu-item-price">129K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Chả ốc</div>
+            </div>
+            <div class="menu-item-price">129K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓN GÀ -->
+      <div class="menu-category-section reveal" id="ga">
+        <h3 class="category-title">Món Gà & Vịt</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà tre rang lá chanh <span class="best-seller-badge">Best Seller</span></div>
+              <div class="menu-item-desc">Món gà đặc biệt với hương thơm lá chanh rừng</div>
+            </div>
+            <div class="menu-item-price">285K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà tre nướng niêu</div>
+            </div>
+            <div class="menu-item-price">285K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà tre hấp</div>
+            </div>
+            <div class="menu-item-price">285K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà tre nướng muối ớt</div>
+            </div>
+            <div class="menu-item-price">285K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà tre hầm sả</div>
+            </div>
+            <div class="menu-item-price">325K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gà ta</div>
+            </div>
+            <div class="menu-item-price">495K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vịt trời (Đặt trước) <span class="best-seller-badge">Đặc Biệt</span></div>
+            </div>
+            <div class="menu-item-price">250K/con</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÁ KHỦNG -->
+      <div class="menu-category-section reveal" id="ca">
+        <h3 class="category-title">Cá Khủng (359K/KG)</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cá nướng muối ớt / Giềng mẻ</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Chả cá Lã Vọng</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gỏi cá trộn chua cay</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cá hấp Hồng Kông / Bẻ nghệ</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cá nấu chuối đậu / Măng chua</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cá om dưa chua</div>
+            </div>
+            <div class="menu-item-price">Theo KG</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEO TỘC -->
+      <div class="menu-category-section reveal" id="heo">
+        <h3 class="category-title">Heo Tộc Đặc Sản</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Heo nướng da giòn <span class="best-seller-badge">Best Seller</span></div>
+              <div class="menu-item-desc">Món đặc biệt làm nên thương hiệu Vua Heo Tộc</div>
+            </div>
+            <div class="menu-item-price">350K/phần</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Heo tộc lên mẹt 4 món <span class="best-seller-badge">Best Seller</span></div>
+            </div>
+            <div class="menu-item-price">559K/mẹt</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Heo tộc 5 món nguyên con <span class="best-seller-badge">Best Seller</span></div>
+            </div>
+            <div class="menu-item-price">Thời giá</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Heo nướng giềng mẻ / Hấp</div>
+            </div>
+            <div class="menu-item-price">189K/phần</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Heo xào lăn kiểu Bắc</div>
+            </div>
+            <div class="menu-item-price">189K/phần</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lòng dồi nướng - hấp</div>
+            </div>
+            <div class="menu-item-price">189K/phần</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Xương heo tộc nấu rượu mận / Xáo măng</div>
+            </div>
+            <div class="menu-item-price">189K/thố</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Canh đắng heo tộc</div>
+            </div>
+            <div class="menu-item-price">199K/thố</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CƠM - MÌ - XÔI -->
+      <div class="menu-category-section reveal" id="com-mi-xoi">
+        <h3 class="category-title">Cơm - Mì - Xôi</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Xôi bồ câu (Xôi chim) <span class="best-seller-badge">Best Seller</span></div>
+            </div>
+            <div class="menu-item-price">129K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cơm chiên trứng / Tỏi</div>
+            </div>
+            <div class="menu-item-price">79K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cơm chiên hải sản / Cá mặn</div>
+            </div>
+            <div class="menu-item-price">109K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Mì xào hải sản / Bò</div>
+            </div>
+            <div class="menu-item-price">129K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHÁO -->
+      <div class="menu-category-section reveal" id="chao">
+        <h3 class="category-title">Cháo</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cháo bò bằm</div>
+            </div>
+            <div class="menu-item-price">149K/thố</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cháo gà</div>
+            </div>
+            <div class="menu-item-price">320K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cháo hải sản / Bồ câu</div>
+            </div>
+            <div class="menu-item-price">169K/thố</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GỎI -->
+      <div class="menu-category-section reveal" id="goi">
+        <h3 class="category-title">Các Món Gỏi</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gỏi bò rau thơm</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gỏi xoài khô cá lóc</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gỏi sứa bánh phồng</div>
+            </div>
+            <div class="menu-item-price">139K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Gỏi rau má tép đồng</div>
+            </div>
+            <div class="menu-item-price">159K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LẨU -->
+      <div class="menu-category-section reveal" id="lau">
+        <h3 class="category-title">Món Lẩu</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu cá nấu riêu / Chuối đậu</div>
+            </div>
+            <div class="menu-item-price">359K/KG</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu xương heo nấu măng / Giả cầy</div>
+            </div>
+            <div class="menu-item-price">249K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu riêu cua bắp bò sườn sụn</div>
+            </div>
+            <div class="menu-item-price">319K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu gà tre hầm sả / Tiềm ớt hiểm</div>
+            </div>
+            <div class="menu-item-price">295K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu lươn / Ếch nấu chuối</div>
+            </div>
+            <div class="menu-item-price">219K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓN KHÁC -->
+      <div class="menu-category-section reveal" id="khac">
+        <h3 class="category-title">Món Khác</h3>
+        <div class="menu-items-grid">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Ốc lác hấp sả / Nướng tiêu xanh</div>
+            </div>
+            <div class="menu-item-price">119K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Mực sữa chiên nước mắm / Nướng</div>
+            </div>
+            <div class="menu-item-price">149K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lươn chiên giòn / Om chuối đậu</div>
+            </div>
+            <div class="menu-item-price">149K - 219K</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Ếch chiên nước mắm / Nướng muối ớt</div>
+            </div>
+            <div class="menu-item-price">65K/con</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Baba 2 món (Nướng / Rang muối / Hầm sả...)</div>
+            </div>
+            <div class="menu-item-price">Thời giá</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. THE ROASTING PROCESS -->
+  <section id="process" class="section-padding" style="background-color: var(--darker);">
+    <div class="container">
+      <div class="process-header reveal">
+        <span class="label">Quy Trình Chế Biến</span>
+        <h2 class="section-title">Từ Núi Rừng Đến Bàn Tiệc</h2>
+      </div>
+      <div class="process-timeline reveal">
+        <div class="process-step">
+          <div class="step-icon">🌿</div>
+          <h4>Chọn Heo</h4>
+          <p>Heo rừng tuyển chọn từ vùng núi phía Bắc, đảm bảo độ tuổi và cân nặng lý tưởng.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-icon">🧂</div>
+          <h4>Ướp Gia Vị</h4>
+          <p>12 tiếng tẩm ướp kỳ công với 9 loại gia vị bản địa để thấm sâu vào từng thớ thịt.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-icon">🔥</div>
+          <h4>Nướng Truyền Thống</h4>
+          <p>4–6 tiếng quay chậm trên than hoa gỗ rừng dưới sự giám sát của nghệ nhân.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-icon">🎉</div>
+          <h4>Thưởng Thức</h4>
+          <p>Phục vụ nóng hổi ngay tại bàn tiệc với đầy đủ các món kèm chuẩn vị vùng cao.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. GALLERY TEASER -->
+  <section id="gallery" class="section-padding">
+    <div class="container">
+      <div class="bento-grid reveal">
+        <div class="bento-item">
+          🐗
+          <div class="bento-overlay"><span class="bento-label">Heo Nguyên Con</span></div>
+        </div>
+        <div class="bento-item">
+          🔥
+          <div class="bento-overlay"><span class="bento-label">Khói Lửa Bập Bùng</span></div>
+        </div>
+        <div class="bento-item">
+          🌿
+          <div class="bento-overlay"><span class="bento-label">Gia Vị Núi Rừng</span></div>
+        </div>
+        <div class="bento-item">
+          ⛺
+          <div class="bento-overlay"><span class="bento-label">Bàn Tiệc Ngoài Trời</span></div>
+        </div>
+        <div class="bento-item">
+          👑
+          <div class="bento-overlay"><span class="bento-label">Nghi Lễ Truyền Thống</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TESTIMONIALS -->
+  <section id="testimonials" class="section-padding" style="background-color: var(--darker);">
+    <div class="container">
+      <div class="why-header reveal">
+        <span class="label">Khách Hàng Nói Gì</span>
+        <h2 class="section-title">Những <i>Ký Ức</i> Đáng Nhớ</h2>
+      </div>
+      <div class="review-grid">
+        <div class="review-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Không thể tin được! Cả nhà 20 người đều trầm trồ. Heo chín vàng đều, da giòn tan, thịt mềm ngọt. Sẽ đặt lại cho sinh nhật năm sau."</p>
+          <div class="reviewer-name">Chị Lan Anh · Hà Nội</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Công ty tôi đặt cho event 50 người. Team Vua Heo Tộc chuyên nghiệp từ setup đến dọn dẹp. Khói lửa, nghi lễ — cực kỳ ấn tượng. Đối tác tin cậy."</p>
+          <div class="reviewer-name">Anh Minh Tuấn · TP.HCM</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Đặt cho đám cưới ngoài trời. Khách quê lẫn khách thành phố đều mê. Hương khói quyện với gió... không khí như lễ hội thật sự. Xứng đáng từng đồng."</p>
+          <div class="reviewer-name">Cô Dâu Phương Thảo · Lâm Đồng</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FAQ ACCORDION -->
+  <section id="faq" class="section-padding">
+    <div class="container">
+      <div class="why-header reveal">
+        <span class="label">Giải Đáp Thắc Mắc</span>
+        <h2 class="section-title">Những Điều Bạn Cần Biết</h2>
+      </div>
+      <div class="faq-container reveal">
+        <div class="faq-item">
+          <button class="faq-question">
+            Đặt trước bao lâu?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Tối thiểu 48 giờ để chúng tôi chuẩn bị heo tươi và tẩm ướp đủ thời gian. Vào mùa lễ hội hoặc cuối tuần, bạn nên đặt trước 7 ngày để giữ chỗ.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Phục vụ khu vực nào?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Chúng tôi phục vụ tại TP.HCM, Hà Nội, Đà Lạt và các tỉnh lân cận. Đối với các tỉnh xa hơn, vui lòng liên hệ để chúng tôi sắp xếp đội ngũ di động.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Gói giá đã bao gồm gì?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Giá đã bao gồm: Heo rừng nguyên con, gia vị tẩm ướp, nghệ nhân nướng trực tiếp, setup bếp lửa, phục vụ cắt thịt tại bàn và dọn dẹp sau tiệc.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Có thể tùy chỉnh khẩu vị không?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Hoàn toàn có thể. Bạn có thể yêu cầu độ cay, mặn hoặc nhấn mạnh vào một loại gia vị đặc trưng nào đó khi trao đổi với tư vấn viên.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Thanh toán như thế nào?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Bạn cần đặt cọc 30% giá trị gói tiệc khi xác nhận đơn hàng. Phần còn lại sẽ được thanh toán trực tiếp sau khi sự kiện kết thúc thành công.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. CONTACT / BOOKING FORM -->
+  <section id="contact" class="section-padding" style="background-color: var(--dark);">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <span class="label">Liên Hệ Đặt Tiệc</span>
+          <h2 class="section-title">Đặt Tiệc Ngay Hôm Nay</h2>
+          <p>Mỗi cuối tuần chúng tôi chỉ nhận tối đa 3 đơn hàng để đảm bảo chất lượng phục vụ tốt nhất. Đừng bỏ lỡ cơ hội tạo nên một bữa tiệc đẳng cấp.</p>
+          
+          <div class="contact-details">
+            <div class="contact-detail">
+              <span>📞</span> 0986 991 153
+            </div>
+            <div class="contact-detail">
+              <span>📧</span> contact@vuaheotoc.vn
+            </div>
+            <div class="contact-detail">
+              <span>📍</span> Lô G17 Xuân Quỳnh, Khu Dân Cư Gia Hoà, TP.HCM
+            </div>
+          </div>
+
+          <div class="urgency-badge">
+            🔥 Cuối tuần này còn 1 slot trống
+          </div>
+        </div>
+
+        <div class="booking-form reveal">
+          <form id="booking-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nguyễn Văn A" required>
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" placeholder="090 123 4567" required>
+              </div>
+              <div class="form-group">
+                <label>Ngày tổ chức</label>
+                <input type="date" required>
+              </div>
+              <div class="form-group">
+                <label>Hình thức phục vụ</label>
+                <select required>
+                  <option value="">Chọn hình thức</option>
+                  <option>Đặt tiệc tại nhà</option>
+                  <option>Mua mang về (Takeaway)</option>
+                  <option>Ăn tại nhà hàng</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Số lượng khách</label>
+                <select required>
+                  <option value="">Chọn số lượng</option>
+                  <option>8–15 người</option>
+                  <option>16–25 người</option>
+                  <option>26–40 người</option>
+                  <option>Trên 40 người</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Gói quan tâm</label>
+                <select required>
+                  <option value="">Chọn gói tiệc</option>
+                  <option>Heo Cơ Bản</option>
+                  <option>Heo Hội Làng</option>
+                  <option>Heo Đại Tiệc</option>
+                  <option>Cần Tư Vấn Thêm</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Ghi chú thêm</label>
+                <textarea placeholder="Yêu cầu đặc biệt của bạn..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">Gửi Yêu Cầu Đặt Tiệc</button>
+          </form>
+          <div id="success-message" class="success-message">
+            Cảm ơn! Chúng tôi đã nhận được yêu cầu và sẽ liên hệ lại trong vòng 2 giờ.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <img src="https://ais-dev-3ijt2s3jdnaldxbrrxurwz-371741841632.asia-southeast1.run.app/logo.png" alt="Vua Heo Tộc Logo" style="height: 40px; width: auto; border-radius: 50%;">
+            <h2 style="margin: 0;">Vua Heo Tộc</h2>
+          </div>
+          <p>Bảo tồn hương vị ngàn năm, mang tinh hoa núi rừng đến bàn tiệc hiện đại.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Khám Phá</h4>
+          <ul>
+            <li><a href="#story">Về Chúng Tôi</a></li>
+            <li><a href="#menu">Thực Đơn</a></li>
+            <li><a href="#process">Quy Trình</a></li>
+            <li><a href="#testimonials">Đánh Giá</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hỗ Trợ</h4>
+          <ul>
+            <li><a href="#faq">Câu Hỏi Thường Gặp</a></li>
+            <li><a href="#contact">Liên Hệ</a></li>
+            <li><a href="#">Chính Sách Bảo Mật</a></li>
+            <li><a href="#">Điều Khoản Dịch Vụ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kết Nối</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">f</a>
+            <a href="#" class="social-link">ig</a>
+            <a href="#" class="social-link">tk</a>
+            <a href="#" class="social-link">z</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Vua Heo Tộc · Bảo lưu mọi quyền. Thiết kế bởi Elite Dev.
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY CTA BAR MOBILE -->
+  <div class="sticky-cta-bar" id="sticky-cta">
+    <div class="sticky-cta-text">
+      🔥 Còn 1 slot cuối tuần. <span>Đặt ngay!</span>
+    </div>
+    <a href="#contact" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.8rem;">Đặt Tiệc</a>
+  </div>
+
+  <script>
+    // 1. STICKY NAVIGATION BEHAVIOR
+    let lastScroll = 0;
+    const nav = document.getElementById('main-nav');
+    const stickyCta = document.getElementById('sticky-cta');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      // Nav hide/show
+      if (currentScroll <= 0) {
+        nav.classList.remove('nav-hidden');
+      }
+      if (currentScroll > lastScroll && !nav.classList.contains('nav-hidden') && currentScroll > 100) {
+        nav.classList.add('nav-hidden');
+      }
+      if (currentScroll < lastScroll && nav.classList.contains('nav-hidden')) {
+        nav.classList.remove('nav-hidden');
+      }
+      lastScroll = currentScroll;
+
+      // Sticky CTA Bar visibility (mobile)
+      if (window.innerWidth <= 768) {
+        if (currentScroll > 600) {
+          stickyCta.style.display = 'flex';
+        } else {
+          stickyCta.style.display = 'none';
+        }
+      }
+    });
+
+    // 2. HERO PARTICLES
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 100;
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 1 + 0.5;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.color = Math.random() > 0.5 ? '#2AADA8' : '#A8DEDA';
+      }
+      update() {
+        this.y -= this.speedY;
+        if (this.y < -10) this.reset();
+      }
+      draw() {
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // 3. SCROLL-TRIGGERED ANIMATIONS
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 4. MENU CATEGORY FILTERING
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const menuSections = document.querySelectorAll('.menu-category-section');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        
+        // Update buttons
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Scroll to section
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          const navHeight = 160; // Approximate height of nav + category bar
+          const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // 5. FAQ ACCORDION
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        const answer = button.nextElementSibling;
+        
+        // Close others
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (item !== faqItem) {
+            item.classList.remove('active');
+            item.querySelector('.faq-answer').style.maxHeight = null;
+          }
+        });
+
+        // Toggle current
+        faqItem.classList.toggle('active');
+        if (faqItem.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+          answer.style.maxHeight = null;
+        }
+      });
+    });
+
+    // 5. FORM SUBMISSION
+    const bookingForm = document.getElementById('booking-form');
+    const successMsg = document.getElementById('success-message');
+
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      bookingForm.style.display = 'none';
+      successMsg.style.display = 'block';
+    });
+
+    // 6. HAMBURGER MENU (Simple toggle)
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '100%';
+      navLinks.style.left = '0';
+      navLinks.style.width = '100%';
+      navLinks.style.background = 'var(--dark)';
+      navLinks.style.padding = '20px';
+      navLinks.style.textAlign = 'center';
+    });
+  </script>
+</body>
+</html>
