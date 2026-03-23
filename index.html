@@ -522,16 +522,24 @@
     .menu-items-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px 60px;
+      gap: 30px;
     }
 
     .menu-item {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 15px;
-      border-bottom: 1px dashed rgba(42, 173, 168, 0.15);
+      flex-direction: column;
+      gap: 15px;
+      border: 1px solid rgba(42, 173, 168, 0.1);
+      padding: 15px;
+      background: rgba(242, 235, 221, 0.02);
+      border-radius: 8px;
       position: relative;
+      transition: var(--transition);
+    }
+
+    .menu-item:hover {
+      border-color: rgba(42, 173, 168, 0.3);
+      background: rgba(242, 235, 221, 0.05);
     }
 
     .menu-item-info {
@@ -553,7 +561,7 @@
       color: var(--gold);
       font-size: 1.1rem;
       white-space: nowrap;
-      margin-left: 20px;
+      margin-top: auto;
     }
 
     .best-seller-badge {
@@ -573,15 +581,6 @@
       margin-top: 4px;
     }
 
-    .menu-item.featured {
-      flex-direction: column;
-      gap: 15px;
-      border: 1px solid rgba(42, 173, 168, 0.1);
-      padding: 15px;
-      background: rgba(242, 235, 221, 0.02);
-      border-radius: 8px;
-    }
-
     .menu-item-img {
       width: 100%;
       height: 180px;
@@ -596,7 +595,7 @@
       transition: transform 0.5s ease;
     }
 
-    .menu-item.featured:hover .menu-item-img img {
+    .menu-item:hover .menu-item-img img {
       transform: scale(1.1);
     }
 
@@ -1017,6 +1016,170 @@
       color: var(--accent);
     }
 
+    /* CART STYLES */
+    .menu-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      width: 100%;
+      gap: 10px;
+    }
+    .menu-item-price {
+      margin-top: 0 !important;
+    }
+    .add-to-cart-btn {
+      background: var(--teal);
+      color: var(--darker);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+    }
+    .add-to-cart-btn:hover {
+      background: var(--mint);
+      transform: translateY(-2px);
+    }
+    .cart-widget {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: transform 0.3s;
+    }
+    .cart-widget:hover { transform: scale(1.1); }
+    .cart-widget .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      font-size: 0.8rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 2px solid var(--darker);
+    }
+    .cart-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      display: none;
+      justify-content: flex-end;
+      backdrop-filter: blur(5px);
+    }
+    .cart-overlay.active { display: flex; }
+    .cart-modal {
+      width: 100%;
+      max-width: 400px;
+      background: var(--dark);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+      animation: slideInRight 0.3s forwards;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    .cart-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(42, 173, 168, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-header h3 { color: var(--teal); margin: 0; font-size: 1.4rem; }
+    .cart-header button { background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+    .cart-header button:hover { color: var(--accent); }
+    .cart-body {
+      padding: 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed rgba(42, 173, 168, 0.1);
+    }
+    .cart-item-info { flex-grow: 1; padding-right: 10px; }
+    .cart-item-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+    .cart-item-price { color: var(--gold); font-size: 0.85rem; }
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--darker);
+      border-radius: 20px;
+      padding: 2px 5px;
+    }
+    .cart-item-qty button {
+      background: transparent;
+      color: var(--teal);
+      border: none;
+      width: 25px;
+      height: 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-item-qty button:hover { color: var(--mint); }
+    .cart-footer {
+      padding: 20px;
+      border-top: 1px solid rgba(42, 173, 168, 0.2);
+      background: var(--darker);
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .cart-total span:last-child { color: var(--gold); }
+    .checkout-form input, .checkout-form textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      background: var(--darker);
+      border: 1px solid rgba(42, 173, 168, 0.2);
+      color: var(--cream);
+      border-radius: 5px;
+      font-family: var(--font-body);
+    }
+    .checkout-form input:focus, .checkout-form textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .story-grid, .contact-grid {
@@ -1072,9 +1235,6 @@
       }
       .bento-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
       .bento-item:nth-child(2) { grid-column: span 2; }
-      .menu-card.featured {
-        transform: scale(1);
-      }
       .booking-form {
         padding: 30px 20px;
       }
@@ -1290,78 +1450,117 @@
         <h3 class="category-title">Các Món Rau</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ca-rot-dua-leo-che-doc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cà rốt - Dưa leo chẻ dọc</div>
             </div>
             <div class="menu-item-price">59K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/rau-luoc-kho-quet.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Rau luộc kho quẹt</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/rau-rung-luoc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Rau rừng luộc</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/rau-rung-xao-toi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Rau rừng xào tỏi</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/rau-rung-xao-bo.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Rau rừng xào bò</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/rau-muong-xao-toi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Rau muống xào tỏi</div>
             </div>
             <div class="menu-item-price">59K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/nu-bi-luoc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Nụ bí luộc</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/nu-bi-xao-bo.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Nụ bí xào bò</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/bau-luoc-cham-trung.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Bầu luộc chấm trứng</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/kho-qua-cha-bong.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Khổ qua chà bông</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/kho-qua-xao-trung.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Khổ qua xào trứng</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/mang-vang-xao-toi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Măng vàng xào tỏi</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/mang-vang-xao-heo-toc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Măng vàng xào heo tộc</div>
             </div>
@@ -1375,48 +1574,72 @@
         <h3 class="category-title">Khai Vị</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/banh-da.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Bánh đa</div>
             </div>
             <div class="menu-item-price">25K/cái</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/khoai-lang-ken.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Khoai lang kén</div>
             </div>
             <div class="menu-item-price">89K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/cha-ram-chien.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Chả ram chiên</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/dau-hu-chien-gion.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Đậu hũ chiên giòn</div>
             </div>
             <div class="menu-item-price">69K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/dau-hu-chien-sa.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Đậu hũ chiên sả</div>
             </div>
             <div class="menu-item-price">79K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/kho-ca-loc-chien.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Khô cá lóc chiên</div>
             </div>
             <div class="menu-item-price">99K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/tep-rang.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Tép rang</div>
             </div>
             <div class="menu-item-price">129K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/cha-oc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Chả ốc</div>
             </div>
@@ -1434,46 +1657,101 @@
               <img src="/ga-tre.jpg" alt="Gà tre rang lá chanh" referrerPolicy="no-referrer">
             </div>
             <div class="menu-item-info">
-              <div class="menu-item-name">Gà tre rang lá chanh <span class="best-seller-badge">Best Seller</span></div>
+              <div class="menu-item-name">Gà tre rang lá chanh</div>
               <div class="menu-item-desc">Món gà đặc biệt với hương thơm lá chanh rừng</div>
             </div>
             <div class="menu-item-price">285K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ga-tre-nuong-nieu.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà tre nướng niêu</div>
             </div>
             <div class="menu-item-price">285K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ga-tre-hap.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà tre hấp</div>
             </div>
             <div class="menu-item-price">285K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ga-tre-nuong-muoi-ot.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà tre nướng muối ớt</div>
             </div>
             <div class="menu-item-price">285K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ga-tre-ham-sa.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà tre hầm sả</div>
             </div>
             <div class="menu-item-price">325K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ga-ta.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gà ta</div>
             </div>
             <div class="menu-item-price">495K/con</div>
           </div>
-          <div class="menu-item">
+          <div class="menu-item featured">
+              <div class="menu-item-img">
+              <img src="/vit-troi-hap-xoi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
-              <div class="menu-item-name">Vịt trời (Đặt trước) <span class="best-seller-badge">Đặc Biệt</span></div>
+              <div class="menu-item-name">Vịt trời hấp xôi <span class="best-seller-badge" style="background: var(--gold); color: var(--ink);">Độc Lạ</span> <span class="best-seller-badge">Best Seller</span></div>
+              <div class="menu-item-desc">Món độc quyền siêu ngon, xôi nếp dẻo thơm quyện vị ngọt thịt vịt</div>
             </div>
             <div class="menu-item-price">250K/con</div>
+          </div>
+          <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/vit-troi-rang-la-chanh-hap.jpg" alt="Ảnh món ăn">
+            </div>
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vịt trời rang lá chanh / Hấp</div>
+            </div>
+            <div class="menu-item-price">250K/con</div>
+          </div>
+          <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/vit-troi-nuong-muoi-ot-nuong-moi.jpg" alt="Ảnh món ăn">
+            </div>
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vịt trời nướng muối ớt / Nướng mọi</div>
+            </div>
+            <div class="menu-item-price">250K/con</div>
+          </div>
+          <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-vit-troi-nau-mang-khoai-so.jpg" alt="Ảnh món ăn">
+            </div>
+            <div class="menu-item-info">
+              <div class="menu-item-name">Lẩu vịt trời nấu măng / Khoai sọ</div>
+            </div>
+            <div class="menu-item-price">250K/con</div>
+          </div>
+          <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/tiet-canh-vit-troi.jpg" alt="Ảnh món ăn">
+            </div>
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tiết canh vịt trời</div>
+            </div>
+            <div class="menu-item-price">Liên hệ</div>
           </div>
         </div>
       </div>
@@ -1483,36 +1761,54 @@
         <h3 class="category-title">Cá Khủng (359K/KG)</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ca-nuong-muoi-ot-gieng-me.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cá nướng muối ớt / Giềng mẻ</div>
             </div>
             <div class="menu-item-price">Theo KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/cha-ca-la-vong.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Chả cá Lã Vọng</div>
             </div>
             <div class="menu-item-price">Theo KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/goi-ca-tron-chua-cay.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gỏi cá trộn chua cay</div>
             </div>
             <div class="menu-item-price">Theo KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ca-hap-hong-kong-be-nghe.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cá hấp Hồng Kông / Bẻ nghệ</div>
             </div>
             <div class="menu-item-price">Theo KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ca-nau-chuoi-dau-mang-chua.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cá nấu chuối đậu / Măng chua</div>
             </div>
             <div class="menu-item-price">Theo KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ca-om-dua-chua.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cá om dưa chua</div>
             </div>
@@ -1545,36 +1841,54 @@
             <div class="menu-item-price">559K/mẹt</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/heo-toc-5-mon-nguyen-con.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Heo tộc 5 món nguyên con <span class="best-seller-badge">Best Seller</span></div>
             </div>
             <div class="menu-item-price">Thời giá</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/heo-nuong-gieng-me-hap.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Heo nướng giềng mẻ / Hấp</div>
             </div>
             <div class="menu-item-price">189K/phần</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/heo-xao-lan-kieu-bac.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Heo xào lăn kiểu Bắc</div>
             </div>
             <div class="menu-item-price">189K/phần</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/long-doi-nuong-hap.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lòng dồi nướng - hấp</div>
             </div>
             <div class="menu-item-price">189K/phần</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/xuong-heo-toc-nau-ruou-man-xao-mang.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Xương heo tộc nấu rượu mận / Xáo măng</div>
             </div>
             <div class="menu-item-price">189K/thố</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/canh-dang-heo-toc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Canh đắng heo tộc</div>
             </div>
@@ -1588,24 +1902,36 @@
         <h3 class="category-title">Cơm - Mì - Xôi</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/xoi-bo-cau-xoi-chim.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Xôi bồ câu (Xôi chim) <span class="best-seller-badge">Best Seller</span></div>
             </div>
             <div class="menu-item-price">129K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/com-chien-trung-toi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cơm chiên trứng / Tỏi</div>
             </div>
             <div class="menu-item-price">79K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/com-chien-hai-san-ca-man.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cơm chiên hải sản / Cá mặn</div>
             </div>
             <div class="menu-item-price">109K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/mi-xao-hai-san-bo.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Mì xào hải sản / Bò</div>
             </div>
@@ -1619,18 +1945,27 @@
         <h3 class="category-title">Cháo</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/chao-bo-bam.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cháo bò bằm</div>
             </div>
             <div class="menu-item-price">149K/thố</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/chao-ga.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cháo gà</div>
             </div>
             <div class="menu-item-price">320K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/chao-hai-san-bo-cau.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Cháo hải sản / Bồ câu</div>
             </div>
@@ -1644,24 +1979,36 @@
         <h3 class="category-title">Các Món Gỏi</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/goi-bo-rau-thom.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gỏi bò rau thơm</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/goi-xoai-kho-ca-loc.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gỏi xoài khô cá lóc</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/goi-sua-banh-phong.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gỏi sứa bánh phồng</div>
             </div>
             <div class="menu-item-price">139K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/goi-rau-ma-tep-dong.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Gỏi rau má tép đồng</div>
             </div>
@@ -1675,30 +2022,45 @@
         <h3 class="category-title">Món Lẩu</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-ca-nau-rieu-chuoi-dau.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lẩu cá nấu riêu / Chuối đậu</div>
             </div>
             <div class="menu-item-price">359K/KG</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-xuong-heo-nau-mang-gia-cay.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lẩu xương heo nấu măng / Giả cầy</div>
             </div>
             <div class="menu-item-price">249K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-rieu-cua-bap-bo-suon-sun.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lẩu riêu cua bắp bò sườn sụn</div>
             </div>
             <div class="menu-item-price">319K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-ga-tre-ham-sa-tiem-ot-hiem.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lẩu gà tre hầm sả / Tiềm ớt hiểm</div>
             </div>
             <div class="menu-item-price">295K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/lau-luon-ech-nau-chuoi.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lẩu lươn / Ếch nấu chuối</div>
             </div>
@@ -1712,30 +2074,45 @@
         <h3 class="category-title">Món Khác</h3>
         <div class="menu-items-grid">
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/oc-lac-hap-sa-nuong-tieu-xanh.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Ốc lác hấp sả / Nướng tiêu xanh</div>
             </div>
             <div class="menu-item-price">119K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/muc-sua-chien-nuoc-mam-nuong.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Mực sữa chiên nước mắm / Nướng</div>
             </div>
             <div class="menu-item-price">149K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/luon-chien-gion-om-chuoi-dau.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Lươn chiên giòn / Om chuối đậu</div>
             </div>
             <div class="menu-item-price">149K - 219K</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/ech-chien-nuoc-mam-nuong-muoi-ot.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Ếch chiên nước mắm / Nướng muối ớt</div>
             </div>
             <div class="menu-item-price">65K/con</div>
           </div>
           <div class="menu-item">
+              <div class="menu-item-img">
+              <img src="/baba-2-mon-nuong-rang-muoi-ham-sa.jpg" alt="Ảnh món ăn">
+            </div>
             <div class="menu-item-info">
               <div class="menu-item-name">Baba 2 món (Nướng / Rang muối / Hầm sả...)</div>
             </div>
@@ -2021,6 +2398,49 @@
     </div>
   </footer>
 
+  <!-- CART WIDGET & MODAL -->
+  <div class="cart-widget" id="cart-widget" onclick="toggleCart()">
+    🛒 <span class="badge" id="cart-count">0</span>
+  </div>
+
+  <div class="cart-overlay" id="cart-overlay">
+    <div class="cart-modal">
+      <!-- CART VIEW -->
+      <div id="cart-view" style="display: flex; flex-direction: column; height: 100%;">
+        <div class="cart-header">
+          <h3>Giỏ Hàng</h3>
+          <button onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-body" id="cart-items">
+          <!-- Items -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Tạm tính:</span>
+            <span id="cart-total-price" style="text-align: right;">0đ</span>
+          </div>
+          <button id="checkout-btn" class="btn btn-primary" style="width: 100%" onclick="goToCheckout()">Tiến Hành Đặt Món</button>
+        </div>
+      </div>
+
+      <!-- CHECKOUT VIEW -->
+      <div id="checkout-view" style="display: none; flex-direction: column; height: 100%;">
+        <div class="cart-header">
+          <h3>Thông Tin Đặt Món</h3>
+          <button onclick="backToCart()">←</button>
+        </div>
+        <div class="cart-body checkout-form">
+          <input type="text" id="cus-name" placeholder="Họ và tên" required>
+          <input type="tel" id="cus-phone" placeholder="Số điện thoại" required>
+          <textarea id="cus-address" placeholder="Địa chỉ giao hàng / Ghi chú" rows="4" required></textarea>
+        </div>
+        <div class="cart-footer">
+          <button class="btn btn-primary" style="width: 100%" onclick="submitOrder()">Xác Nhận Đặt Hàng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- STICKY CTA BAR MOBILE -->
   <div class="sticky-cta-bar" id="sticky-cta">
     <div class="sticky-cta-text">
@@ -2205,6 +2625,156 @@
       navLinks.style.padding = '20px';
       navLinks.style.textAlign = 'center';
     });
+
+    // 7. CART LOGIC
+    let cart = [];
+
+    // Inject Add to Cart buttons
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const priceDiv = item.querySelector('.menu-item-price');
+      if (!priceDiv) return;
+
+      const bottomRow = document.createElement('div');
+      bottomRow.className = 'menu-item-bottom';
+      
+      priceDiv.parentNode.insertBefore(bottomRow, priceDiv);
+      bottomRow.appendChild(priceDiv);
+
+      const btn = document.createElement('button');
+      btn.className = 'add-to-cart-btn';
+      btn.innerHTML = '<span>+</span> Thêm';
+      btn.onclick = () => {
+        let nameRaw = item.querySelector('.menu-item-name').innerText;
+        const name = nameRaw.replace(/Best Seller|Độc Lạ/g, '').trim();
+        const priceText = priceDiv.innerText;
+        addToCart(name, priceText);
+      };
+      bottomRow.appendChild(btn);
+    });
+
+    function parsePrice(priceStr) {
+      const match = priceStr.match(/(\d+)K/i);
+      return match ? parseInt(match[1]) * 1000 : 0;
+    }
+
+    function formatPrice(num) {
+      return num.toLocaleString('vi-VN') + 'đ';
+    }
+
+    function addToCart(name, priceText) {
+      const price = parsePrice(priceText);
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, priceText, price, qty: 1 });
+      }
+      updateCartUI();
+      
+      const widget = document.getElementById('cart-widget');
+      widget.style.transform = 'scale(1.2)';
+      setTimeout(() => widget.style.transform = 'scale(1)', 200);
+    }
+
+    function updateCartQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('cart-count');
+      const itemsEl = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total-price');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      
+      let totalQty = 0;
+      let totalPrice = 0;
+      let hasCustomPrice = false;
+
+      itemsEl.innerHTML = '';
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = '<p style="text-align:center; opacity:0.5; margin-top: 50px;">Giỏ hàng trống</p>';
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.opacity = '0.5';
+      } else {
+        checkoutBtn.disabled = false;
+        checkoutBtn.style.opacity = '1';
+        cart.forEach((item, index) => {
+          totalQty += item.qty;
+          totalPrice += item.price * item.qty;
+          if (item.price === 0) hasCustomPrice = true;
+
+          itemsEl.innerHTML += `
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">${item.priceText}</div>
+              </div>
+              <div class="cart-item-qty">
+                <button onclick="updateCartQty(${index}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button onclick="updateCartQty(${index}, 1)">+</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      countEl.innerText = totalQty;
+      
+      if (hasCustomPrice) {
+        totalEl.innerHTML = formatPrice(totalPrice) + '<br><span style="font-size:0.75rem; color:var(--mint); font-weight:normal;">+ Món tính theo thời giá/KG</span>';
+      } else {
+        totalEl.innerText = formatPrice(totalPrice);
+      }
+    }
+
+    function toggleCart() {
+      const overlay = document.getElementById('cart-overlay');
+      overlay.classList.toggle('active');
+      if(overlay.classList.contains('active')) {
+        document.getElementById('cart-view').style.display = 'flex';
+        document.getElementById('checkout-view').style.display = 'none';
+      }
+    }
+
+    function goToCheckout() {
+      if (cart.length === 0) return;
+      document.getElementById('cart-view').style.display = 'none';
+      document.getElementById('checkout-view').style.display = 'flex';
+    }
+
+    function backToCart() {
+      document.getElementById('checkout-view').style.display = 'none';
+      document.getElementById('cart-view').style.display = 'flex';
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('cus-name').value;
+      const phone = document.getElementById('cus-phone').value;
+      const address = document.getElementById('cus-address').value;
+      
+      if(!name || !phone || !address) {
+        alert('Vui lòng điền đầy đủ thông tin!');
+        return;
+      }
+
+      alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất để xác nhận đơn hàng.');
+      cart = [];
+      updateCartUI();
+      toggleCart();
+      
+      document.getElementById('cus-name').value = '';
+      document.getElementById('cus-phone').value = '';
+      document.getElementById('cus-address').value = '';
+    }
+
+    // Initialize empty cart UI
+    updateCartUI();
   </script>
 </body>
 </html>
