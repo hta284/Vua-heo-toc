@@ -1,0 +1,32 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Customer order for food items",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string", "description": "Name of the customer" },
+        "customerPhone": { "type": "string", "description": "Phone number of the customer" },
+        "customerAddress": { "type": "string", "description": "Delivery address or notes" },
+        "items": {
+          "type": "array",
+          "description": "List of items ordered"
+        },
+        "totalPriceText": { "type": "string", "description": "Formatted total price" },
+        "status": { 
+          "type": "string", 
+          "enum": ["pending", "cooking", "completed", "cancelled"],
+          "description": "Current status of the order"
+        },
+        "timestamp": { "type": "number", "description": "Creation timestamp" }
+      },
+      "required": ["customerName", "customerPhone", "customerAddress", "items", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of all customer orders"
+    }
+  }
+}

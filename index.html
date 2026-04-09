@@ -2536,6 +2536,28 @@
     <a href="#contact" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.8rem;">Đặt Tiệc</a>
   </div>
 
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1_wtKUP6rCD5rdAAk7R-OWq-pm7w956U",
+      authDomain: "vua-heo-toc-system.firebaseapp.com",
+      projectId: "vua-heo-toc-system",
+      storageBucket: "vua-heo-toc-system.firebasestorage.app",
+      messagingSenderId: "631022163905",
+      appId: "1:631022163905:web:22f6046f403b916ffec140",
+      measurementId: "G-3F2Z2XR0ZJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.firebaseDB = db;
+    window.firebaseOrdersCol = collection(db, "orders");
+  </script>
+
   <script>
     // 1. STICKY NAVIGATION BEHAVIOR
     let lastScroll = 0;
@@ -2840,7 +2862,7 @@
       document.getElementById('cart-view').style.display = 'flex';
     }
 
-    function submitOrder() {
+    async function submitOrder() {
       const name = document.getElementById('cus-name').value;
       const phone = document.getElementById('cus-phone').value;
       const address = document.getElementById('cus-address').value;
@@ -2850,30 +2872,45 @@
         return;
       }
 
-      // Save order to localStorage for admin demo
-      const order = {
-        id: Math.floor(100000 + Math.random() * 900000).toString(),
-        customerName: name,
-        customerPhone: phone,
-        customerAddress: address,
-        items: cart,
-        totalPriceText: document.getElementById('cart-total-price').innerText,
-        status: 'pending',
-        timestamp: Date.now()
-      };
-      
-      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
-      orders.push(order);
-      localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
+      const submitBtn = document.querySelector('#checkout-view .btn-primary');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Đang gửi...';
 
-      alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất để xác nhận đơn hàng.');
-      cart = [];
-      updateCartUI();
-      toggleCart();
-      
-      document.getElementById('cus-name').value = '';
-      document.getElementById('cus-phone').value = '';
-      document.getElementById('cus-address').value = '';
+      try {
+        // Save order to Firebase Firestore
+        const orderData = {
+          customerName: name,
+          customerPhone: phone,
+          customerAddress: address,
+          items: cart.map(item => ({
+            name: item.name,
+            priceText: item.priceText,
+            price: item.price,
+            qty: item.qty
+          })),
+          totalPriceText: document.getElementById('cart-total-price').innerText,
+          status: 'pending',
+          timestamp: Date.now() // Using Date.now() to match the admin logic, or could use serverTimestamp()
+        };
+        
+        const { addDoc, collection } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        await addDoc(window.firebaseOrdersCol, orderData);
+
+        alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất để xác nhận đơn hàng.');
+        cart = [];
+        updateCartUI();
+        toggleCart();
+        
+        document.getElementById('cus-name').value = '';
+        document.getElementById('cus-phone').value = '';
+        document.getElementById('cus-address').value = '';
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert('Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại hoặc gọi hotline.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Xác Nhận Đặt Hàng';
+      }
     }
 
     // Initialize empty cart UI

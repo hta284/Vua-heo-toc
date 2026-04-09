@@ -35,6 +35,45 @@
       overflow: hidden;
     }
 
+    /* LOGIN OVERLAY */
+    #login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      gap: 20px;
+    }
+
+    .login-box {
+      background: var(--bg-col);
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .btn-login {
+      background: #fff;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
     /* HEADER */
     .admin-header {
       background: #0a0a0a;
@@ -289,14 +328,27 @@
 </head>
 <body>
 
+  <div id="login-overlay">
+    <div class="login-box">
+      <h2 style="margin-bottom: 20px;">Hệ Thống Nội Bộ Vua Heo Tộc</h2>
+      <p style="color: var(--text-muted); margin-bottom: 30px;">Vui lòng đăng nhập bằng tài khoản quản trị để tiếp nhận đơn hàng.</p>
+      <button class="btn-login" id="google-login-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+        Đăng nhập với Google
+      </button>
+      <div id="login-error" style="color: var(--c-danger); margin-top: 20px; font-size: 0.9rem; display: none;"></div>
+    </div>
+  </div>
+
   <header class="admin-header">
     <h1><span>🔥</span> Bếp & Điều Phối Đơn Hàng</h1>
     <div class="header-actions">
+      <div id="user-display" style="font-size: 0.85rem; color: var(--text-muted);"></div>
       <div class="live-indicator">
         <div class="live-dot"></div>
         Live Sync
       </div>
-      <button class="btn-clear" onclick="clearAllOrders()">Xóa Dữ Liệu Test</button>
+      <button class="btn-clear" onclick="handleLogout()">Đăng Xuất</button>
     </div>
   </header>
 
@@ -335,29 +387,107 @@
     </div>
   </div>
 
-  <script>
-    // Format time helper
-    function formatTime(timestamp) {
-      const d = new Date(timestamp);
-      return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1_wtKUP6rCD5rdAAk7R-OWq-pm7w956U",
+      authDomain: "vua-heo-toc-system.firebaseapp.com",
+      projectId: "vua-heo-toc-system",
+      storageBucket: "vua-heo-toc-system.firebasestorage.app",
+      messagingSenderId: "631022163905",
+      appId: "1:631022163905:web:22f6046f403b916ffec140",
+      measurementId: "G-3F2Z2XR0ZJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Error Handling
+    const OperationType = {
+      CREATE: 'create',
+      UPDATE: 'update',
+      DELETE: 'delete',
+      LIST: 'list',
+      GET: 'get',
+      WRITE: 'write',
+    };
+
+    function handleFirestoreError(error, operationType, path) {
+      const errInfo = {
+        error: error instanceof Error ? error.message : String(error),
+        authInfo: {
+          userId: auth.currentUser?.uid,
+          email: auth.currentUser?.email,
+          emailVerified: auth.currentUser?.emailVerified,
+        },
+        operationType,
+        path
+      };
+      console.error('Firestore Error: ', JSON.stringify(errInfo));
+      
+      if (error.code === 'permission-denied') {
+        alert('Bạn không có quyền thực hiện thao tác này. Vui lòng kiểm tra lại tài khoản quản trị.');
+      }
     }
 
-    // Load and render orders
-    function loadOrders() {
-      // Lấy dữ liệu từ localStorage (Mô phỏng Database)
-      const orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
+    // Auth Logic
+    document.getElementById('google-login-btn').onclick = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.error("Login Error:", error);
+        document.getElementById('login-error').innerText = "Lỗi đăng nhập: " + error.message;
+        document.getElementById('login-error').style.display = 'block';
+      }
+    };
+
+    window.handleLogout = () => {
+      signOut(auth);
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('user-display').innerText = user.email;
+        initRealtimeOrders();
+      } else {
+        document.getElementById('login-overlay').style.display = 'flex';
+      }
+    });
+
+    // Realtime Orders Logic
+    let unsubscribe = null;
+
+    function initRealtimeOrders() {
+      if (unsubscribe) unsubscribe();
+
+      const q = query(collection(db, "orders"), orderBy("timestamp", "desc"));
       
-      // Phân loại đơn hàng
+      unsubscribe = onSnapshot(q, (snapshot) => {
+        const orders = [];
+        snapshot.forEach((doc) => {
+          orders.push({ id: doc.id, ...doc.data() });
+        });
+        renderOrders(orders);
+      }, (error) => {
+        handleFirestoreError(error, OperationType.LIST, 'orders');
+      });
+    }
+
+    function renderOrders(orders) {
       const pending = orders.filter(o => o.status === 'pending');
       const cooking = orders.filter(o => o.status === 'cooking');
       const completed = orders.filter(o => o.status === 'completed');
 
-      // Cập nhật số lượng trên Header cột
       document.getElementById('count-pending').innerText = pending.length;
       document.getElementById('count-cooking').innerText = cooking.length;
       document.getElementById('count-completed').innerText = completed.length;
 
-      // Render từng cột
       renderColumn('list-pending', pending, 'pending');
       renderColumn('list-cooking', cooking, 'cooking');
       renderColumn('list-completed', completed, 'completed');
@@ -371,9 +501,7 @@
         return;
       }
 
-      // Sắp xếp: 
-      // Phiếu mới & Đang nấu: Cũ nhất lên đầu (FIFO - Ai đặt trước làm trước)
-      // Hoàn thành: Mới nhất lên đầu (Để dễ xem đơn vừa xong)
+      // Sort logic
       if (type === 'completed') {
         ordersList.sort((a, b) => b.timestamp - a.timestamp);
       } else {
@@ -381,35 +509,32 @@
       }
       
       container.innerHTML = ordersList.map(order => {
-        // Tạo HTML cho danh sách món ăn
         const itemsHtml = order.items.map(i => `
           <div class="item-row">
             <div><span class="item-qty">${i.qty}x</span> ${i.name}</div>
           </div>
         `).join('');
 
-        // Tạo HTML cho các nút thao tác tùy theo trạng thái
         let actionButtons = '';
         if (type === 'pending') {
           actionButtons = `
-            <button class="btn btn-primary" onclick="updateOrderStatus('${order.id}', 'cooking')">Nhận Đơn (Nấu)</button>
-            <button class="btn btn-danger" onclick="updateOrderStatus('${order.id}', 'cancelled')">Hủy</button>
+            <button class="btn btn-primary" onclick="window.updateStatus('${order.id}', 'cooking')">Nhận Đơn (Nấu)</button>
+            <button class="btn btn-danger" onclick="window.updateStatus('${order.id}', 'cancelled')">Hủy</button>
           `;
         } else if (type === 'cooking') {
           actionButtons = `
-            <button class="btn btn-success" onclick="updateOrderStatus('${order.id}', 'completed')">Xong (Chờ Giao)</button>
+            <button class="btn btn-success" onclick="window.updateStatus('${order.id}', 'completed')">Xong (Chờ Giao)</button>
           `;
         } else if (type === 'completed') {
           actionButtons = `
-            <button class="btn btn-outline" onclick="deleteOrder('${order.id}')">Xóa Khỏi Bảng</button>
+            <button class="btn btn-outline" onclick="window.removeOrder('${order.id}')">Xóa Khỏi Bảng</button>
           `;
         }
 
-        // Trả về HTML của Card
         return `
           <div class="order-card">
             <div class="card-header">
-              <div class="order-id">#${order.id}</div>
+              <div class="order-id">#${order.id.substring(0,6)}</div>
               <div class="order-time">🕒 ${formatTime(order.timestamp)}</div>
             </div>
             
@@ -433,43 +558,31 @@
       }).join('');
     }
 
-    // Cập nhật trạng thái đơn hàng
-    function updateOrderStatus(orderId, newStatus) {
-      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
-      const index = orders.findIndex(o => o.id === orderId);
-      
-      if (index > -1) {
-        orders[index].status = newStatus;
-        // Nếu chuyển sang hoàn thành, cập nhật lại timestamp để đưa lên đầu danh sách hoàn thành
-        if (newStatus === 'completed') {
-          orders[index].timestamp = Date.now(); 
-        }
-        localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
-        loadOrders();
+    window.updateStatus = async (orderId, newStatus) => {
+      try {
+        const orderRef = doc(db, "orders", orderId);
+        await updateDoc(orderRef, { 
+          status: newStatus,
+          timestamp: newStatus === 'completed' ? Date.now() : Date.now() // Keep it updated for sorting
+        });
+      } catch (error) {
+        handleFirestoreError(error, OperationType.UPDATE, `orders/${orderId}`);
       }
-    }
+    };
 
-    // Xóa 1 đơn hàng (ẩn khỏi bảng)
-    function deleteOrder(orderId) {
-      let orders = JSON.parse(localStorage.getItem('vuaheotoc_orders') || '[]');
-      orders = orders.filter(o => o.id !== orderId);
-      localStorage.setItem('vuaheotoc_orders', JSON.stringify(orders));
-      loadOrders();
-    }
-
-    // Xóa toàn bộ dữ liệu (Dành cho lúc test)
-    function clearAllOrders() {
-      if(confirm('Bạn có chắc chắn muốn xóa TẤT CẢ đơn hàng test không?')) {
-        localStorage.removeItem('vuaheotoc_orders');
-        loadOrders();
+    window.removeOrder = async (orderId) => {
+      if (!confirm('Xóa đơn hàng này khỏi hệ thống?')) return;
+      try {
+        await deleteDoc(doc(db, "orders", orderId));
+      } catch (error) {
+        handleFirestoreError(error, OperationType.DELETE, `orders/${orderId}`);
       }
+    };
+
+    function formatTime(timestamp) {
+      const d = new Date(timestamp);
+      return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
     }
-
-    // Khởi chạy lần đầu
-    loadOrders();
-
-    // Tự động làm mới mỗi 2 giây để giả lập Real-time
-    setInterval(loadOrders, 2000);
 
   </script>
 </body>

@@ -1,40 +1,20 @@
-# 🐷 Vua Heo Tộc – Website Nhà Hàng
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Website giới thiệu và đặt bàn cho nhà hàng **Vua Heo Tộc** – chuyên heo rừng nướng truyền thống Tây Nguyên.
+# Run and deploy your AI Studio app
 
-## 📍 Thông Tin Nhà Hàng
+This contains everything you need to run your app locally.
 
-| | |
-|---|---|
-| **Địa chỉ** | Lô G17 Xuân Quỳnh, Khu Dân Cư Gia Hoà |
-| **Hotline / Zalo** | 0986 991 153 |
-| **Giờ mở cửa** | Mở cả tuần – 9h sáng đến 11h đêm |
+View your app in AI Studio: https://ai.studio/apps/2300739b-39f0-4363-943d-317e7c567b70
 
-## 🌐 Tính Năng Website
+## Run Locally
 
-- Giới thiệu thương hiệu & câu chuyện truyền thống
-- Thực đơn 3 mức mâm (Gia Đình / Đám Tiệc / Sự Kiện Lớn)
-- Quy trình chế biến 4 bước
-- Đánh giá khách hàng
-- Nút gọi & Zalo đặt bàn trực tiếp
-- Responsive – tương thích mobile
+**Prerequisites:**  Node.js
 
-## 🚀 Cách Dùng
 
-Mở file `roasted-mountain-pig.html` trực tiếp trên trình duyệt, hoặc deploy lên GitHub Pages:
-
-1. Vào **Settings** → **Pages**
-2. Chọn branch `main`, thư mục `/ (root)`
-3. Save → Website live tại `https://username.github.io/Vua-Heo-Toc-Website`
-
-## 🛠 Công Nghệ
-
-- HTML5 / CSS3 / Vanilla JavaScript
-- Google Fonts (Cormorant Garamond + Outfit)
-- Không cần framework, không cần server
-
-## 📸 Cập Nhật Tiếp Theo
-
-- [ ] Thêm ảnh thực đơn thực tế
-- [ ] Cập nhật bảng giá
-- [ ] Tích hợp form đặt bàn online
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
